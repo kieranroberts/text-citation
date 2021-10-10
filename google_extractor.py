@@ -6,7 +6,7 @@ import urllib
 from requests_html import HTML
 from requests_html import HTMLSession
 
-from util import is_valid_sentence
+from util import str_to_sentences, is_valid_sentence
 
 def get_source(url):
     """Return the source code for the provided URL. 
