@@ -5,7 +5,8 @@ import requests
 import urllib
 from requests_html import HTML
 from requests_html import HTMLSession
-import re
+
+from util import is_valid_sentence
 
 def get_source(url):
     """Return the source code for the provided URL. 
@@ -48,14 +49,6 @@ def get_results(query):
     response = get_source("https://www.google.co.uk/search?q=" + query)
     
     return response
-
-def is_valid_sentence(sentence):
-    sentence = re.sub('^[ ]+', '', sentence)
-    pattern = re.compile(r'^[A-Za-z0-9]')
-    if re.match(pattern, sentence):
-        return True
-    else:
-        return False
 
 def parse_results(response):
     
