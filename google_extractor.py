@@ -72,7 +72,7 @@ def parse_results(response):
             'link': result.find(css_identifier_link, first=True).attrs['href'],
             'text': result.find(css_identifier_text, first=True).text
         }
-        
+
         # We want to split the text into a list of valid sentences.
         all_sentences = list(
             map(lambda x : x.split(hyphen)[-1], item['text'].split('.'))
@@ -82,7 +82,6 @@ def parse_results(response):
             if is_valid_sentence(sentence):
                 valid_sentences.append(sentence.lstrip().rstrip())
         item['sentences'] = valid_sentences
-        
         output.append(item)
         
     return output
