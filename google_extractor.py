@@ -23,27 +23,6 @@ def get_source(url):
     except requests.exceptions.RequestException as e:
         print(e)
 
-def scrape_google(query):
-
-    query = urllib.parse.quote_plus(query)
-    response = get_source("https://www.google.co.uk/search?q=" + query)
-    
-    links = list(response.html.absolute_links)
-    google_domains = ('https://www.google.', 
-                      'https://google.', 
-                      'https://webcache.googleusercontent.', 
-                      'http://webcache.googleusercontent.',                      
-                      'https://policies.google.',
-                      'https://support.google.',
-                      'https://books.google.',
-                      'https://maps.google.')
-
-    for url in links[:]:
-        if url.startswith(google_domains):
-            links.remove(url)
-
-    return links
-
 def get_results(query):
     
     query = urllib.parse.quote_plus(query)
@@ -52,7 +31,7 @@ def get_results(query):
     return response
 
 def parse_results(response):
-    
+
     # These identifiers may change in the future to prevent unofficial scraping
     # of Google search results
     css_identifier_result = ".tF2Cxc"
