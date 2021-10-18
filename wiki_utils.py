@@ -22,7 +22,10 @@ def remove_section_title(sections):
 def desectionize_wiki_str(sections):
     return "\n\n\n".join(sections)
 
-def exclude_substring_sections(content, section_names=['See also', 'Footnotes', 'References', 'External links']):
+def exclude_substring_sections(content, section_names=['See also', 
+                                                       'Footnotes', 
+                                                       'References', 
+                                                       'External links']):
     sections = sectionize_wiki_str(content)
     sections = exclude_sections(sections,section_names=section_names)
     sections = remove_section_title(sections)
