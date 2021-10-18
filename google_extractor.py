@@ -35,6 +35,7 @@ def scrape_google(query):
                       'http://webcache.googleusercontent.',                      
                       'https://policies.google.',
                       'https://support.google.',
+                      'https://books.google.',
                       'https://maps.google.')
 
     for url in links[:]:
@@ -63,26 +64,42 @@ def parse_results(response):
     
     results = response.html.find(css_identifier_result)
 
-    output = []
+    output = list()
+    
+    google_domains = ('https://www.google.', 
+                    'https://google.', 
+                    'https://webcache.googleusercontent.', 
+                    'http://webcache.googleusercontent.',                      
+                    'https://policies.google.',
+                    'https://support.google.',
+                    'https://books.google.',
+                    'https://maps.google.')
     
     for result in results:
 
         item = {
             'title': result.find(css_identifier_title, first=True).text,
-            'link': result.find(css_identifier_link, first=True).attrs['href'],
-            'text': result.find(css_identifier_text, first=True).text
+            'url': result.find(css_identifier_link, first=True).attrs['href'],
         }
+        try:
+            item['content'] = result.find(css_identifier_text, first=True).text
+        except:
+            item['content'] = ''
+        
+        if item['url'].startswith(google_domains):
+            continue
 
         # We want to split the text into a list of valid sentences.
         all_sentences = list(
-            map(lambda x : x.split(hyphen)[-1], item['text'].split('.'))
+            map(lambda x : x.split(hyphen)[-1], item['content'].split('.'))
         )
         valid_sentences = list()
         for sentence in all_sentences:
             if is_valid_sentence(sentence):
                 valid_sentences.append(sentence.lstrip().rstrip())
-        item['sentences'] = valid_sentences
-        output.append(item)
+        if len(valid_sentences) > 0:
+            item['sentences'] = valid_sentences
+            output.append(item)
         
     return output
 
