@@ -5,7 +5,7 @@ nltk.download('punkt')
 import util
 from sentence import Sentence
 from google_extractor import google_search
-from wiki_extractor import wiki_output
+from wiki_extractor import wiki_search 
 
 home_dir = 'c:/Users/asunder/Code/text-citation/book'
 num_pages = 70
@@ -35,7 +35,7 @@ for sentence in valid_sentences[765:]:
     query = s.content
     
     sources = google_search(query)
-    wiki_sources = wiki_output(query)
+    wiki_sources = wiki_search(query)
     sources.extend(wiki_sources)
 
     for source in sources:
