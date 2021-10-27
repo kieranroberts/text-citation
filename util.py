@@ -1,8 +1,11 @@
 import re
 
 def str_to_sentences(x):
-    sentences = x.split('.')
-    sentences = list(map(lambda s : re.sub('^[\s]+', '', s).rstrip(), sentences))
+    sentences = x.split('\n\n')
+    sentences = [re.split('\!|\.',x) for x in sentences]
+    sentences = [item for sent in sentences for item in sent if item != ' ']
+    sentences = [re.sub('\n', '', sent) for sent in sentences]
+    #sentences = list(map(lambda s : re.sub('^[\s]+', '', s).rstrip(), sentences))
     return sentences
     
 def is_valid_sentence(sentence):
