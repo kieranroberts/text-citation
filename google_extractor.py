@@ -54,7 +54,7 @@ def parse_results(response):
                     'https://books.google.',
                     'https://maps.google.')
     
-    for result in results:
+    for result in results[:5]:
 
         item = {
             'title': result.find(css_identifier_title, first=True).text,
@@ -65,20 +65,18 @@ def parse_results(response):
         except:
             item['content'] = ''
         
-        if item['url'].startswith(google_domains):
-            continue
-
-        # We want to split the text into a list of valid sentences.
-        all_sentences = list(
-            map(lambda x : x.split(hyphen)[-1], item['content'].split('.'))
-        )
-        valid_sentences = list()
-        for sentence in all_sentences:
-            if is_valid_sentence(sentence):
-                valid_sentences.append(sentence.lstrip().rstrip())
-        if len(valid_sentences) > 0:
-            item['sentences'] = valid_sentences
-            output.append(item)
+        if not(item['url'].startswith(google_domains)):
+            # We want to split the text into a list of valid sentences.
+            all_sentences = list(
+                map(lambda x : x.split(hyphen)[-1], item['content'].split('.'))
+            )
+            valid_sentences = list()
+            for sentence in all_sentences:
+                if is_valid_sentence(sentence):
+                    valid_sentences.append(sentence.lstrip().rstrip())
+            if len(valid_sentences) > 0:
+                item['sentences'] = valid_sentences
+                output.append(item)
         
     return output
 
