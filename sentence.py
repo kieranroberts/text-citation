@@ -8,6 +8,7 @@ class Sentence:
         self.best_candidate = {'title' : None, 'url' : None, 'sentence' : None, 
                                 'prob' : 0}
         self.source = None
+        self.sentence_number = None
 
     
     def _get_source_(self, prob=0.8):
@@ -27,6 +28,9 @@ class Sentence:
                 self.best_candidate['sentence'] = source['sentences'][i]
                 self.best_candidate['prob'] = cosine_scores[0][i]
                 self._get_source_()
+    
+    def set_sentence_number(self, i):
+        self.sentence_number = i
         
 
         
