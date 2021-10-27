@@ -32,7 +32,6 @@ def wiki_search(query,results=3):
     pages = wiki_query(query, results=results)
     if pages:
         for page in pages:
-            print(page)
             res = page_extractor(page)
             if res:
                 keys = list()
