@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title%}About page{% endblock %}
+
+{% block content %}
+{% for sentence in sentences %}
+    {% if sentence.content == '' %}
+        <br><br>
+    {% else %}
+        <a href="{{sentence.best_candidate['url']}}" title="Page title: {{sentence.best_candidate['title']}}&#10;Page URL: {{sentence.best_candidate['url']}}&#10;Text: {{sentence.best_candidate['sentence']}}&#10;Matching probability: {{sentence.best_candidate['prob']}}" style="background-color:#FFFFFF;color:#000000;text-decoration:none" target="_blank">{{sentence.content}}.</a> 
+    {% endif %}
+{% endfor %}
+{% endblock %}
+
+
