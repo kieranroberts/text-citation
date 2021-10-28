@@ -1,4 +1,5 @@
 from sentence_transformers import SentenceTransformer, util
+from urllib.parse import urlparse
 
 class Sentence:
     model = SentenceTransformer('all-mpnet-base-v2')
@@ -8,12 +9,16 @@ class Sentence:
         self.best_candidate = {'title' : None, 'url' : None, 'sentence' : None, 
                                 'prob' : 0}
         self.source = None
+        self.domain = None
         self.sentence_number = None
+        self.sent_len = None
+        self.is_section = False
 
     
     def _get_source_(self, prob=0.8):
         if self.best_candidate['prob'] > prob:
             self.source = self.best_candidate
+            self.domain = urlparse(self.best_candidate['url']).netloc
             
     def compare(self, source):
         query = self.content
@@ -31,6 +36,10 @@ class Sentence:
     
     def set_sentence_number(self, i):
         self.sentence_number = i
+    
+    def get_sentence_len(self):
+        self.sent_len = len(self.content.split(' '))
+        
         
 
         
