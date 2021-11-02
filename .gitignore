@@ -4,4 +4,5 @@
 *.png
 *.old
 *.p
-book/*.*
+book/
+test/
