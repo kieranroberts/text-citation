@@ -16,16 +16,18 @@ def page_extractor(page, first_N_lines=10):
 #    if not(page.endswith('(disambiguation)')):
     try:
         response = wikipedia.page(page, auto_suggest=False)
-        res = {'title' : response.title, 'url' : response.url, 
-                    'content' : response.content}
-        all_sentences = res['content'].split('.')
-        valid_sentences = list(filter(is_valid_sentence, all_sentences))
-        #valid_sentences
-        res['sentences'] = valid_sentences[:first_N_lines]
-        return res
     except wikipedia.exceptions.DisambiguationError as e:
         print('Skipping disambgiuous pages: {}'.format(e.options))
         return False
+
+    res = {'title' : response.title, 'url' : response.url, 
+                'content' : response.content}
+    all_sentences = res['content'].split('.')
+    valid_sentences = list(filter(is_valid_sentence, all_sentences))
+    #valid_sentences
+    res['sentences'] = valid_sentences[:first_N_lines]
+    return res
+
 
 def wiki_search(query,results=3):
     entries = list()

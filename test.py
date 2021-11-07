@@ -4,6 +4,9 @@ from sentence import Sentence
 from google_extractor import google_search
 from wiki_extractor import wiki_search 
 import pickle
+import unittest
+from unittest.mock import Mock
+
 
 home_dir = 'c:/Users/asunder/Code/text-citation/book'
 
@@ -37,6 +40,8 @@ valid_sentences = list()
 for s in sentences:
     if util.is_valid_sentence(s):
         valid_sentences.append(s)
+
+# for i, sentence in enumerate(sentences):
 
 def compare_sentences(sentences):
     sentence_objects = list()
@@ -116,3 +121,22 @@ from wiki_extractor import wiki_search
 
 #tokens = nltk.sent_tokenize(my_text)
 """
+
+
+
+class TestSentence(unittest.TestCase)
+
+    def test_some_test_case(self):
+        # setup
+        # self.assertEqual()
+        # test other conditions as you see fit
+
+# unittest part of standard library
+# look up Mock, patch, patch.object
+
+# in the terminal
+# python3 -m unittest test.py
+# pip3 install coverage
+# coverage -m unittest discover tests/
+# coverage run -m unittest test.py
+# coverage report -m

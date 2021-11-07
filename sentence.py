@@ -1,10 +1,11 @@
 from sentence_transformers import SentenceTransformer, util
 from urllib.parse import urlparse
-
+import json
 class Sentence:
-    model = SentenceTransformer('all-mpnet-base-v2')
+    # model = SentenceTransformer('all-mpnet-base-v2')
     
-    def __init__(self, content):
+    def __init__(self, content, model):
+        self.model = model
         self.content = content
         self.best_candidate = {'title' : None, 'url' : None, 'sentence' : None, 
                                 'prob' : 0}
@@ -14,6 +15,8 @@ class Sentence:
         self.sent_len = None
         self.is_section = False
 
+    def __len__(self):
+        return len(self.content.split(' '))
     
     def _get_source_(self, prob=0.8):
         if self.best_candidate['prob'] > prob:
@@ -40,11 +43,32 @@ class Sentence:
     def get_sentence_len(self):
         self.sent_len = len(self.content.split(' '))
         
-        
 
-        
-        
-        
-        
-        
-    
+
+# kdtree
+# lsh
+
+class Sentence:
+    def __init__(self):
+        self.content
+        self.is_section
+        self.embedding
+
+    def save(self, output_file):
+        #...
+
+def get_closest_match(*, sentence: Sentence, source: dict):
+    # ...
+
+def get_sentence_embedding(*, content: str) -> Sentence:
+    #...
+    return Sentence(...)
+
+# from sentence import get_closest_match
+# get_closest_match(sentence)
+
+#json.dump(f) / dumps()
+#json.load  loads
+
+sentence = Sentence()
+sentence.save()

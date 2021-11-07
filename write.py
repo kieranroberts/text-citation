@@ -10,6 +10,7 @@ class ExtractBook:
         self.num_pages = num_pages
         self.full_book = None
         self.title = title
+        self.text = self.convert_book_to_text()
     
     def convert_book_to_text(self):
         total_str = str()
@@ -35,3 +36,7 @@ class ExtractBook:
         with open(path_to_output, 'w') as txt:
             txt.write(self.full_book)
             
+
+book.save()
+
+# pip install black  # formatter

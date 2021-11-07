@@ -23,3 +23,8 @@ output = template.render(sentences=sentences)
 path_to_output = os.path.join(output_dir, 'test_page.html')
 with open(path_to_output, 'w',  encoding="utf-8") as f:
     f.write(output)
+
+
+if __name__ == "__main__":
+    # code goes here
+    pass
